@@ -1,0 +1,85 @@
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background: #0d1117;
+  color: #fff;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+header { text-align: center; padding: 40px 20px 10px; }
+header h1 { font-size: 2.6rem; color: #ff6b1a; text-shadow: 0 0 20px rgba(255,107,26,.4); }
+header p { color: #aaa; margin-top: 8px; font-size: 1.1rem; }
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  width: 100%;
+  max-width: 1000px;
+  padding: 30px 20px;
+}
+
+.card {
+  background: #161b22;
+  border: 2px solid #2a2f3a;
+  border-radius: 16px;
+  padding: 28px 20px;
+  text-align: center;
+  text-decoration: none;
+  color: #fff;
+  transition: transform .15s, border-color .15s;
+  display: block;
+}
+.card.live { border-color: #ff6b1a; }
+.card.live:hover { transform: translateY(-4px); border-color: #ffd23f; }
+.card.soon { opacity: .55; }
+
+.card-emoji { font-size: 3rem; margin-bottom: 12px; }
+.card h2 { font-size: 1.3rem; margin-bottom: 8px; }
+.card p { color: #aaa; font-size: .95rem; margin-bottom: 16px; min-height: 40px; }
+
+.badge {
+  display: inline-block;
+  background: #ff6b1a;
+  color: #fff;
+  font-weight: bold;
+  padding: 10px 24px;
+  border-radius: 30px;
+  font-size: .9rem;
+}
+.soon-badge { background: #444; }
+
+.back { color: #ff6b1a; text-decoration: none; font-weight: bold; margin: 16px; display: inline-block; }
+.game-wrap { width: 100%; max-width: 700px; padding: 0 16px 30px; text-align: center; }
+#message { font-size: 1.4rem; font-weight: bold; min-height: 44px; margin: 14px 0; color: #ffd23f; }
+
+.big-btn {
+  background: #ff6b1a;
+  color: #fff;
+  border: none;
+  font-size: 1.2rem;
+  font-weight: bold;
+  padding: 14px 44px;
+  border-radius: 40px;
+  cursor: pointer;
+}
+.big-btn:hover { background: #ff822f; }
+
+.overlay-screen {
+  position: absolute; inset: 0;
+  background: rgba(13,17,23,.92);
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  border-radius: 16px; z-index: 5; padding: 20px;
+}
+.overlay-screen h2 { font-size: 1.8rem; margin-bottom: 12px; color: #ff6b1a; }
+.overlay-screen p { color: #ccc; margin-bottom: 20px; max-width: 420px; }
+#result { font-size: 1.3rem; font-weight: bold; margin-bottom: 8px; }
+#rank { font-size: 1.5rem; font-weight: bold; color: #ffd23f; margin-bottom: 20px; }
+
+footer { margin-top: auto; padding: 24px; color: #666; font-size: .9rem; text-align: center; }
+footer a { color: #ff6b1a; }
