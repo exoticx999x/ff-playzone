@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="description" content="Play free Free Fire mini games online - Headshot Reaction Test, Gun Master Quiz, Sensitivity Helper and Booyah Clicker. No download needed!">
+<meta name="keywords" content="free fire mini games, free fire games online, headshot reaction test, ff quiz, ff sensitivity, booyah clicker, free fire tools">
+<meta property="og:title" content="FF PlayZone - Free Fire Mini Games">
+<meta property="og:description" content="4 free Free Fire mini games in your browser. Test your headshot speed!">
+<meta property="og:type" content="website">
+<meta name="google-site-verification" content="cEL4mnraSI4PlHnypVSVF9kv9lIkyo-G5kyy9Sn4YlQ">
+<meta name="theme-color" content="#ff6b1a">
+<title>FF PlayZone — Free Fire Mini Games</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#0d1117;color:#fff;min-height:100vh;display:flex;flex-direction:column;align-items:center}
+header{text-align:center;padding:36px 20px 8px}
+header h1{font-size:2.6rem;color:#ff6b1a;text-shadow:0 0 20px rgba(255,107,26,.4)}
+header p{color:#aaa;margin-top:8px;font-size:1.1rem}
+.view{display:none;width:100%;max-width:1000px;padding:20px}
+#view-home{display:block}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px;width:100%}
+.card{background:#161b22;border:2px solid #ff6b1a;border-radius:16px;padding:28px 20px;text-align:center;color:#fff;cursor:pointer;transition:transform .15s,border-color .15s}
+.card:hover{transform:translateY(-4px);border-color:#ffd23f}
+.card-emoji{font-size:3rem;margin-bottom:12px}
+.card h2{font-size:1.3rem;margin-bottom:8px}
+.card p{color:#aaa;font-size:.95rem;margin-bottom:16px;min-height:40px}
+.badge{display:inline-block;background:#ff6b1a;color:#fff;font-weight:bold;padding:10px 24px;border-radius:30px;font-size:.9rem}
+.back{color:#ff6b1a;font-weight:bold;margin:6px 0 14px;display:inline-block;cursor:pointer;background:none;border:none;font-size:1rem;text-align:left}
+.game-box{width:100%;max-width:700px;margin:0 auto;text-align:center}
+#message{font-size:1.4rem;font-weight:bold;min-height:44px;margin:14px 0;color:#ffd23f}
+.big-btn{background:#ff6b1a;color:#fff;border:none;font-size:1.2rem;font-weight:bold;padding:14px 44px;border-radius:40px;cursor:pointer;margin:8px}
+.big-btn:hover{background:#ff822f}
+.big-btn:disabled{background:#555;cursor:default}
+.overlay-screen{position:absolute;inset:0;background:rgba(13,17,23,.94);display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:16px;z-index:5;padding:20px}
+.overlay-screen h2{font-size:1.8rem;margin-bottom:12px;color:#ff6b1a}
+.overlay-screen p{color:#ccc;margin-bottom:20px;max-width:420px}
+#arena{position:relative;width:100%;height:64vh;min-height:400px;background:#0d1117;border:2px solid #ff6b1a;border-radius:16px;overflow:hidden;touch-action:none;user-select:none;-webkit-user-select:none}
+#target{display:none;position:absolute;width:68px;height:68px;margin:-34px 0 0 -34px;border-radius:50%;background:radial-gradient(circle,#ff3b3b 28%,#ff6b1a 62%,#ffd23f 100%);cursor:pointer;box-shadow:0 0 26px #ff3b3b;z-index:2}
+#result{font-size:1.3rem;font-weight:bold;margin-bottom:8px}
+#rank{font-size:1.5rem;font-weight:bold;color:#ffd23f;margin-bottom:20px}
+.opt-btn{display:block;width:100%;background:#161b22;border:2px solid #2a2f3a;color:#fff;font-size:1.05rem;padding:14px;border-radius:12px;margin:10px 0;cursor:pointer;text-align:left}
+.opt-btn:hover{border-color:#ff6b1a}
+.opt-btn.correct{border-color:#2ecc71;background:#14301f}
+.opt-btn.wrong{border-color:#e74c3c;background:#331414}
+.opt-btn:disabled{cursor:default;opacity:.9}
+#quiz-q{font-size:1.35rem;font-weight:bold;margin:10px 0 18px;min-height:60px}
+#quiz-score{color:#ffd23f;font-weight:bold;margin-bottom:10px}
+.sensi-row{background:#161b22;border:2px solid #2a2f3a;border-radius:12px;padding:14px;margin:10px 0;display:flex;justify-content:space-between;align-items:center}
+.sensi-row b{color:#ff6b1a;font-size:1.3rem}
+select{background:#161b22;color:#fff;border:2px solid #2a2f3a;border-radius:10px;padding:10px 14px;font-size:1rem;margin:6px;width:100%;max-width:420px}
+label{display:block;color:#aaa;margin-top:14px}
+#clicker-btn{width:220px;height:220px;border-radius:50%;border:6px solid #ffd23f;background:radial-gradient(circle,#ff6b1a,#c1440e);color:#fff;font-size:1.8rem;font-weight:bold;cursor:pointer;margin:20px auto;display:block;touch-action:manipulation;user-select:none;-webkit-user-select:none}
+#clicker-btn:active{transform:scale(.94)}
+#click-count{font-size:3rem;font-weight:bold;color:#ffd23f}
+#click-time{font-size:1.2rem;color:#aaa;margin-bottom:10px}
+footer{margin-top:auto;padding:24px;color:#666;font-size:.9rem;text-align:center}
+footer a{color:#ff6b1a}
+</style>
+</head>
+<body>
+<header>
+  <h1>🎮 FF PlayZone</h1>
+  <p>Free Fire mini games — test your skills!</p>
+</header>
+
+<!-- ============ HOME ============ -->
+<div class="view" id="view-home">
+  <div class="grid">
+    <div class="card" onclick="show('view-reaction')">
+      <div class="card-emoji">🎯</div><h2>Headshot Reaction Test</h2>
+      <p>10 targets. How fast are your fingers? Prove your headshot speed!</p>
+      <span class="badge">PLAY NOW</span>
+    </div>
+    <div class="card" onclick="show('view-quiz');startQuiz()">
+      <div class="card-emoji">🔫</div><h2>Gun Master Quiz</h2>
+      <p>8 questions. Are you a true Free Fire weapon expert?</p>
+      <span class="badge">PLAY NOW</span>
+    </div>
+    <div class="card" onclick="show('view-sensi')">
+      <div class="card-emoji">⚙️</div><h2>Sensitivity Helper</h2>
+      <p>Answer 3 questions, get your perfect sensitivity settings.</p>
+      <span class="badge">OPEN TOOL</span>
+    </div>
+    <div class="card" onclick="show('view-clicker');resetClicker()">
+      <div class="card-emoji">👑</div><h2>Booyah Clicker</h2>
+      <p>Tap as fast as you can in 10 seconds. Beat your best!</p>
+      <span class="badge">PLAY NOW</span>
+    </div>
+  </div>
+</div>
+
+<!-- ============ REACTION GAME ============ -->
+<div class="view" id="view-reaction">
+  <button class="back" onclick="show('view-home')">← Back to games</button>
+  <div class="game-box">
+    <div id="message">Tap START when ready!</div>
+    <div id="arena">
+      <div id="startScreen" class="overlay-screen">
+        <h2>🎯 Headshot Reaction Test</h2>
+        <p>10 targets will pop up at random spots. Tap each one as FAST as you can!</p>
+        <button id="startBtn" class="big-btn">START</button>
+      </div>
+      <div id="endScreen" class="overlay-screen" style="display:none">
+        <h2>Done!</h2><p id="result"></p><p id="rank"></p>
+        <button id="againBtn" class="big-btn">PLAY AGAIN</button>
+      </div>
+      <div id="target"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ GUN QUIZ ============ -->
+<div class="view" id="view-quiz">
+  <button class="back" onclick="show('view-home')">← Back to games</button>
+  <div class="game-box">
+    <div id="quiz-score"></div>
+    <div id="quiz-q"></div>
+    <div id="quiz-opts"></div>
+    <div id="quiz-end" style="display:none">
+      <h2 style="color:#ff6b1a;margin:16px 0">Quiz Complete!</h2>
+      <p id="quiz-result" style="font-size:1.3rem;margin-bottom:8px"></p>
+      <p id="quiz-rank" style="font-size:1.4rem;color:#ffd23f;font-weight:bold;margin-bottom:16px"></p>
+      <button class="big-btn" onclick="startQuiz()">PLAY AGAIN</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============ SENSITIVITY HELPER ============ -->
+<div class="view" id="view-sensi">
+  <button class="back" onclick="show('view-home')">← Back to games</button>
+  <div class="game-box" style="text-align:left">
+    <h2 style="color:#ff6b1a;margin-bottom:6px">⚙️ Sensitivity Helper</h2>
+    <p style="color:#aaa;margin-bottom:10px">Answer 3 questions — get a starting setup. Adjust in-game to your feel!</p>
+    <label>1. Your device?</label>
+    <select id="s-device"><option value="phone">📱 Phone</option><option value="tablet">📟 Tablet / iPad</option></select>
+    <label>2. Your play style?</label>
+    <select id="s-style"><option value="rusher">⚡ Rusher (close fights)</option><option value="allround">🎯 All-round</option><option value="sniper">🔭 Sniper (long range)</option></select>
+    <label>3. Your experience?</label>
+    <select id="s-exp"><option value="new">🌱 Beginner</option><option value="mid">🔥 Intermediate</option><option value="pro">👑 Pro</option></select>
+    <div style="text-align:center;margin-top:16px"><button class="big-btn" onclick="genSensi()">GET MY SETTINGS</button></div>
+    <div id="sensi-out" style="display:none;margin-top:10px">
+      <div class="sensi-row"><span>General</span><b id="sv-gen"></b></div>
+      <div class="sensi-row"><span>Red Dot</span><b id="sv-red"></b></div>
+      <div class="sensi-row"><span>2x Scope</span><b id="sv-2x"></b></div>
+      <div class="sensi-row"><span>4x Scope</span><b id="sv-4x"></b></div>
+      <div class="sensi-row"><span>Sniper Scope</span><b id="sv-sn"></b></div>
+      <div class="sensi-row"><span>Free Look</span><b id="sv-free"></b></div>
+      <p style="color:#666;font-size:.85rem;margin-top:10px">Starting point only — test in training ground and adjust ±10 until it feels right. No setting gives auto headshots!</p>
+    </div>
+  </div>
+</div>
+
+<!-- ============ BOOYAH CLICKER ============ -->
+<div class="view" id="view-clicker">
+  <button class="back" onclick="show('view-home')">← Back to games</button>
+  <div class="game-box">
+    <h2 style="color:#ff6b1a">👑 Booyah Clicker</h2>
+    <p style="color:#aaa;margin:8px 0">Tap the button as many times as you can in <b>10 seconds</b>!</p>
+    <div id="click-time">Press START</div>
+    <div id="click-count">0</div>
+    <button id="clicker-btn" disabled>BOOYAH!</button>
+    <div><button id="clicker-start" class="big-btn" onclick="startClicker()">START</button></div>
+    <p id="click-best" style="color:#ffd23f;margin-top:10px"></p>
+  </div>
+</div>
+
+<footer>
+  <p>Made for Free Fire fans 🔥 | <a href="https://ffastutebetaserver.com">ffastutebetaserver.com</a></p>
+</footer>
+
+<script>
+'use strict';
+function show(id){
+  var views=document.querySelectorAll('.view');
+  for(var i=0;i<views.length;i++) views[i].style.display='none';
+  document.getElementById(id).style.display='block';
+  window.scrollTo(0,0);
+}
+
+/* ---------- 1. REACTION GAME ---------- */
+var rArena=document.getElementById('arena'), rTarget=document.getElementById('target'),
+    rMsg=document.getElementById('message'), rTimes=[], rRound=0, rStart=0, rTimer=null;
+var R_TOTAL=10;
+document.getElementById('startBtn').addEventListener('click',rStartGame);
+document.getElementById('againBtn').addEventListener('click',rStartGame);
+function rStartGame(){
+  document.getElementById('startScreen').style.display='none';
+  document.getElementById('endScreen').style.display='none';
+  rRound=0; rTimes=[]; rNext();
+}
+function rNext(){
+  if(rRound>=R_TOTAL){ rFinish(); return; }
+  rTarget.style.display='none'; rMsg.textContent='Wait for the target…';
+  rTimer=setTimeout(function(){
+    var r=rArena.getBoundingClientRect(), pad=70;
+    var x=pad+Math.random()*Math.max(r.width-pad*2,10);
+    var y=pad+Math.random()*Math.max(r.height-pad*2,10);
+    rTarget.style.left=x+'px'; rTarget.style.top=y+'px';
+    rTarget.style.display='block'; rStart=performance.now(); rMsg.textContent='TAP NOW!';
+  }, 800+Math.random()*2200);
+}
+rTarget.addEventListener('pointerdown',function(e){
+  e.preventDefault();
+  if(rTarget.style.display!=='block') return;
+  var ms=Math.round(performance.now()-rStart);
+  rTimes.push(ms); rRound++; clearTimeout(rTimer); rTarget.style.display='none';
+  if(rRound>=R_TOTAL){ rFinish(); return; }
+  rMsg.textContent=ms+' ms — '+(R_TOTAL-rRound)+' left';
+  setTimeout(rNext,600);
+});
+function rFinish(){
+  clearTimeout(rTimer); rTarget.style.display='none';
+  var avg=Math.round(rTimes.reduce(function(a,b){return a+b;},0)/rTimes.length);
+  var best=Math.min.apply(null,rTimes);
+  document.getElementById('result').textContent='Average: '+avg+' ms • Best: '+best+' ms';
+  var rank = avg<250 ? '🏆 GRANDMASTER — insane speed!'
+    : avg<350 ? '💎 HEROIC — pro player!'
+    : avg<450 ? '🔷 DIAMOND — sharp!'
+    : avg<600 ? '🟢 PLATINUM — good!' : '🟡 GOLD — keep practicing!';
+  document.getElementById('rank').textContent=rank;
+  rMsg.textContent='Test complete!';
+  document.getElementById('endScreen').style.display='flex';
+}
+
+/* ---------- 2. GUN MASTER QUIZ ---------- */
+var QUIZ=[
+ {q:'Which gun is called the king of close-range fights?',o:['AK','MP40','AWM','M4A1'],a:1},
+ {q:'The AWM is what type of weapon?',o:['SMG','Shotgun','Sniper Rifle','Pistol'],a:2},
+ {q:'Which shotgun hits hardest up close?',o:['M1014','SPAS12','M1887','Desert Eagle'],a:2},
+ {q:'The Desert Eagle is a…',o:['Assault Rifle','SMG','Sniper','Pistol'],a:3},
+ {q:'Where do you find the Groza?',o:['In houses','Airdrop','Vending machine','Anywhere'],a:1},
+ {q:'Which of these is an Assault Rifle?',o:['MP5','M4A1','UMP','M1014'],a:1},
+ {q:'The Kar98k uses which ammo?',o:['SMG ammo','Shotgun shells','Sniper ammo','AR ammo'],a:2},
+ {q:'Which weapon is best for long-range one-taps?',o:['MP40','M1887','AWM','Fists'],a:2}
+];
+var qIdx=0,qScore=0;
+function startQuiz(){
+  qIdx=0;qScore=0;
+  document.getElementById('quiz-end').style.display='none';
+  renderQ();
+}
+function renderQ(){
+  var Q=QUIZ[qIdx];
+  document.getElementById('quiz-score').textContent='Question '+(qIdx+1)+'/'+QUIZ.length+' • Score: '+qScore;
+  document.getElementById('quiz-q').textContent=Q.q;
+  var box=document.getElementById('quiz-opts'); box.innerHTML='';
+  for(var i=0;i<Q.o.length;i++){
+    (function(i){
+      var b=document.createElement('button');
+      b.className='opt-btn'; b.textContent=Q.o[i];
+      b.onclick=function(){answerQ(i,b);};
+      box.appendChild(b);
+    })(i);
+  }
+}
+function answerQ(i,btn){
+  var Q=QUIZ[qIdx];
+  var btns=document.getElementById('quiz-opts').children;
+  for(var k=0;k<btns.length;k++) btns[k].disabled=true;
+  if(i===Q.a){ btn.className+=' correct'; qScore++; }
+  else { btn.className+=' wrong'; btns[Q.a].className+=' correct'; }
+  setTimeout(function(){
+    qIdx++;
+    if(qIdx<QUIZ.length) renderQ(); else endQuiz();
+  },900);
+}
+function endQuiz(){
+  document.getElementById('quiz-q').textContent='';
+  document.getElementById('quiz-opts').innerHTML='';
+  document.getElementById('quiz-score').textContent='';
+  document.getElementById('quiz-result').textContent='You scored '+qScore+' / '+QUIZ.length;
+  var r = qScore===8 ? '🏆 WEAPON MASTER!' : qScore>=6 ? '💎 Pro Shooter!' : qScore>=4 ? '🔷 Solid Player!' : '🟡 Keep Training!';
+  document.getElementById('quiz-rank').textContent=r;
+  document.getElementById('quiz-end').style.display='block';
+}
+
+/* ---------- 3. SENSITIVITY HELPER ---------- */
+function genSensi(){
+  var dev=document.getElementById('s-device').value,
+      sty=document.getElementById('s-style').value,
+      exp=document.getElementById('s-exp').value;
+  var base = dev==='tablet' ? 85 : 95;
+  if(sty==='rusher') base+=5;
+  if(sty==='sniper') base-=10;
+  if(exp==='new') base-=10;
+  if(exp==='pro') base+=5;
+  function clamp(v){ return Math.max(50,Math.min(100,Math.round(v))); }
+  document.getElementById('sv-gen').textContent=clamp(base);
+  document.getElementById('sv-red').textContent=clamp(base);
+  document.getElementById('sv-2x').textContent=clamp(base-8);
+  document.getElementById('sv-4x').textContent=clamp(base-15);
+  document.getElementById('sv-sn').textContent=clamp(base-25);
+  document.getElementById('sv-free').textContent=clamp(base+2);
+  document.getElementById('sensi-out').style.display='block';
+}
+
+/* ---------- 4. BOOYAH CLICKER ---------- */
+var cCount=0,cActive=false,cTimer=null,cLeft=10;
+var cBest=parseInt(localStorage.getItem('booyahBest')||'0',10);
+function resetClicker(){
+  cCount=0;cActive=false;clearInterval(cTimer);
+  document.getElementById('click-count').textContent='0';
+  document.getElementById('click-time').textContent='Press START';
+  document.getElementById('clicker-btn').disabled=true;
+  document.getElementById('clicker-start').disabled=false;
+  showBest();
+}
+function showBest(){
+  document.getElementById('click-best').textContent = cBest>0 ? '🏅 Your best: '+cBest+' taps' : '';
+}
+function startClicker(){
+  cCount=0;cLeft=10;cActive=true;
+  document.getElementById('click-count').textContent='0';
+  document.getElementById('clicker-btn').disabled=false;
+  document.getElementById('clicker-start').disabled=true;
+  tick();
+  cTimer=setInterval(function(){
+    cLeft--; tick();
+    if(cLeft<=0){ endClicker(); }
+  },1000);
+}
+function tick(){ document.getElementById('click-time').textContent=cLeft+' seconds left!'; }
+document.getElementById('clicker-btn').addEventListener('pointerdown',function(e){
+  e.preventDefault();
+  if(!cActive) return;
+  cCount++;
+  document.getElementById('click-count').textContent=cCount;
+});
+function endClicker(){
+  clearInterval(cTimer); cActive=false;
+  document.getElementById('clicker-btn').disabled=true;
+  document.getElementById('clicker-start').disabled=false;
+  var msg;
+  if(cCount>cBest && cCount>0){ cBest=cCount; localStorage.setItem('booyahBest',String(cBest)); msg='🎉 NEW BEST! '; }
+  else msg='';
+  msg += cCount>=80 ? 'BOOYAH! Insane speed! 👑' : cCount>=50 ? 'Great tapping! 🔥' : cCount>=25 ? 'Good! Keep practicing! 👍' : 'Warm up those fingers! 💪';
+  document.getElementById('click-time').textContent=msg;
+  showBest();
+}
+showBest();
+</script>
+</body>
+</html>
